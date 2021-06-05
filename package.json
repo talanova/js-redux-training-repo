@@ -1,0 +1,84 @@
+{
+  "name": "js-redux-training-repo",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "lint": "prettier --check . && eslint . --ext .js,.ts && tsc --noEmit",
+    "start": "webpack serve --mode development",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/talanova/js-redux-training-repo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/talanova/js-redux-training-repo/issues"
+  },
+  "homepage": "https://github.com/talanova/js-redux-training-repo#readme",
+  "devDependencies": {
+    "@babel/core": "^7.13.10",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.13.12",
+    "@babel/preset-typescript": "^7.13.0",
+    "@types/jest": "^26.0.21",
+    "@typescript-eslint/eslint-plugin": "^4.20.0",
+    "@typescript-eslint/parser": "^4.20.0",
+    "@webpack-cli/serve": "^1.3.0",
+    "babel-jest": "^26.6.3",
+    "babel-loader": "^8.2.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "browser-sync": "^2.26.14",
+    "browser-sync-webpack-plugin": "^2.3.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "codecov": "^3.8.1",
+    "copy-webpack-plugin": "^7.0.0",
+    "core-js": "^3.9.1",
+    "css-loader": "^5.1.1",
+    "eslint": "^7.23.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.3.2",
+    "glob": "^7.1.6",
+    "html-webpack-partials-plugin": "^0.8.0",
+    "html-webpack-plugin": "^4.5.0",
+    "husky": "^4.3.8",
+    "jest": "^26.6.3",
+    "jest-fetch-mock": "^3.0.3",
+    "jest-localstorage-mock": "^2.4.8",
+    "lint-staged": "^10.5.4",
+    "mini-css-extract-plugin": "^1.3.8",
+    "node-sass": "^5.0.0",
+    "prettier": "2.2.1",
+    "regenerator-runtime": "^0.13.7",
+    "sass-loader": "^11.0.1",
+    "style-loader": "^2.0.0",
+    "stylelint": "^13.11.0",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-scss": "^3.19.0",
+    "ts-jest": "^26.5.4",
+    "ts-node": "^9.1.1",
+    "tslint": "^6.1.3",
+    "typescript": "^4.2.3",
+    "webpack": "^5.27.2",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "prettier --write",
+      "eslint --cache --fix --ext .js,.ts"
+    ],
+    "*.{html,css,scss,md,yml}": "prettier --write",
+    "*.{scss,css}": "stylelint --fix"
+  }
+}
