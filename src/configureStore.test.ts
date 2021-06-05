@@ -27,8 +27,8 @@ describe("configureStore", () => {
     it("calculates new state with reducer call", () => {
       const action1 = { type: "first" };
       const action2 = { type: "second" };
-      const reducer = jest.fn((state = 1) => state + 1);
-      const store = configureStore(reducer);
+      const reducer = jest.fn((state) => state + 1);
+      const store = configureStore(reducer, 1);
 
       store.dispatch(action1);
       expect(reducer).toHaveBeenCalledWith(1, action1);
