@@ -2,6 +2,7 @@ export type Store<State = any, Action = { type: string; payload?: unknown }> = {
   getState(): State | undefined;
   dispatch(action: Action): any;
   subscribe(subscriber: () => void): () => void;
+  replaceReducer(newReducer: Reducer<State, Action>): void;
 };
 
 export type Reducer<State, Action> = (

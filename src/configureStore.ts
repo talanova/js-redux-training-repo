@@ -5,6 +5,7 @@ export function configureStore<State, Action>(
   preloadedState?: State | undefined,
   middlewares?: Middleware<State, Action>[]
 ): Store<State, Action> {
+  let storeReducer: Reducer<State, Action> = reducer;
   let state: State | undefined = preloadedState;
   let subscribers: (() => void)[] = [];
 
@@ -13,7 +14,7 @@ export function configureStore<State, Action>(
   }
 
   function dispatch(action: Action) {
-    state = reducer(state, action);
+    state = storeReducer(state, action);
     subscribers.forEach((subscriber) => subscriber());
   }
 
@@ -24,5 +25,9 @@ export function configureStore<State, Action>(
     };
   }
 
-  return { getState, dispatch, subscribe };
+  function replaceReducer(newReducer: Reducer<State, Action>): void {
+    storeReducer = newReducer;
+  }
+
+  return { getState, dispatch, subscribe, replaceReducer };
 }

@@ -14,6 +14,7 @@ describe("configureStore", () => {
       expect(store.dispatch).toBeInstanceOf(Function);
       expect(store.subscribe).toBeInstanceOf(Function);
       expect(store.subscribe(jest.fn())).toBeInstanceOf(Function);
+      expect(store.replaceReducer).toBeInstanceOf(Function);
     });
   });
 
@@ -68,6 +69,23 @@ describe("configureStore", () => {
       unsubscribe();
       store.dispatch(action2);
       expect(spy).toHaveBeenCalledTimes(1);
+    });
+
+    it("allows to change reducer", () => {
+      const state = 1;
+      const random = Math.random() * 10;
+
+      const action = { type: "some-action" };
+      const firstReducer = jest.fn(() => state * random);
+      const secondReducer = jest.fn(() => state * random * 2);
+
+      const store = configureStore(firstReducer);
+      store.dispatch(action);
+      store.replaceReducer(secondReducer);
+      store.dispatch(action);
+
+      expect(firstReducer).toHaveBeenCalledTimes(1);
+      expect(secondReducer).toHaveBeenCalledTimes(1);
     });
   });
 });
