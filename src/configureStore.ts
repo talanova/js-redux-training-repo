@@ -1,10 +1,18 @@
 import { Store, Reducer, Middleware } from "./types";
+import { applyMiddleware } from "./applyMiddleware";
 
 export function configureStore<State, Action>(
   reducer: Reducer<State, Action>,
   preloadedState?: State | undefined,
   middlewares?: Middleware<State, Action>[]
 ): Store<State, Action> {
+  if (middlewares) {
+    return applyMiddleware<State, Action>(...middlewares)(
+      reducer,
+      preloadedState
+    );
+  }
+
   let storeReducer: Reducer<State, Action> = reducer;
   let state: State | undefined = preloadedState;
   let subscribers: (() => void)[] = [];

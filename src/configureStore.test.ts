@@ -88,4 +88,8 @@ describe("configureStore", () => {
       expect(secondReducer).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe("middlewares", () => {
+    // put your tests here
+  });
 });

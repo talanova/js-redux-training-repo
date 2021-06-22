@@ -25,6 +25,7 @@ module.exports = {
     "no-use-before-define": "off",
     "import/extensions": "off",
     "max-classes-per-file": "off",
+    "prefer-destructuring": ["error", { object: false }],
   },
   settings: {
     "import/resolver": {
