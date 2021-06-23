@@ -1,4 +1,5 @@
 import { configureStore } from "./configureStore";
+import { Middleware } from "./types";
 
 describe("configureStore", () => {
   describe("public interface", () => {
@@ -90,6 +91,15 @@ describe("configureStore", () => {
   });
 
   describe("middlewares", () => {
-    // put your tests here
+    it("generates store with middlewares", () => {
+      const reducer = jest.fn();
+      const middleware: Middleware<any, any> = jest.fn();
+      const middlewares: Middleware<any, any>[] = [];
+      middlewares.push(middleware);
+
+      const store = configureStore(reducer, 1, middlewares);
+      expect(store).not.toBeNull();
+      expect(middlewares).toHaveBeenCalledTimes(1);
+    });
   });
 });
