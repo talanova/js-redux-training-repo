@@ -14,7 +14,7 @@ describe("combineReducers", () => {
       a: (state = 1, _action) => state,
       b: (state = "one", _action) => state,
     });
-    expect(reducer(undefined, { type: "unknown" })).toEqual({
+    expect(reducer(undefined, { type: "action-type" })).toEqual({
       a: 1,
       b: "one",
     });
@@ -22,7 +22,7 @@ describe("combineReducers", () => {
 
   it("calls subreducers with proper values", () => {
     type State = { a: number; b: number };
-    type Action = { payload: number };
+    type Action = { type: string; payload: number };
 
     const config = {
       a: jest.fn((state = 0, action: Action) => state + action.payload),
@@ -33,8 +33,8 @@ describe("combineReducers", () => {
 
     const initialState: State = { a: 55, b: 66 };
 
-    const action1 = { payload: 1 };
-    const newState1 = reducer(initialState, { payload: 1 });
+    const action1: Action = { type: "first-action", payload: 1 };
+    const newState1 = reducer(initialState, action1);
 
     expect(config.a).toHaveBeenCalledWith(55, action1);
     expect(config.b).toHaveBeenCalledWith(66, action1);
@@ -44,7 +44,7 @@ describe("combineReducers", () => {
       b: 65,
     });
 
-    const action2 = { payload: 2 };
+    const action2: Action = { type: "second-action", payload: 2 };
     const newState2 = reducer(newState1, action2);
 
     expect(config.a).toHaveBeenCalledWith(56, action2);
