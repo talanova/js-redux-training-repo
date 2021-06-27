@@ -1,4 +1,5 @@
 import { combineReducers } from "./combineReducers";
+import { Reducer } from "./types";
 
 describe("combineReducers", () => {
   it("is a function", () => {
@@ -24,9 +25,15 @@ describe("combineReducers", () => {
     type State = { a: number; b: number };
     type Action = { type: string; payload: number };
 
+    const reducerA = jest.fn(
+      (state = 0, action: Action) => state + action.payload
+    ) as Reducer<number, Action>;
+    const reducerB = jest.fn(
+      (state = 0, action: Action) => state - action.payload
+    ) as Reducer<number, Action>;
     const config = {
-      a: jest.fn((state = 0, action: Action) => state + action.payload),
-      b: jest.fn((state = 0, action: Action) => state - action.payload),
+      a: reducerA,
+      b: reducerB,
     };
 
     const reducer = combineReducers<State, Action>(config);

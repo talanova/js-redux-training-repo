@@ -1,21 +1,14 @@
-export function combineReducers<ReducersConfig, Action>(
-  config: {
-    [key in keyof ReducersConfig]: (
-      state: ReducersConfig[key] | undefined,
-      action: Action
-    ) => ReducersConfig[key];
-  }
-) {
-  return function (
-    state: { [key in keyof ReducersConfig]: ReducersConfig[key] } | undefined,
-    action: Action
-  ) {
-    const combined: any = [];
+import { Reducer } from "./types";
 
-    Object.keys(config).forEach(
-      // eslint-disable-next-line no-return-assign
-      (key) => (combined[key] = config[key](state && state[key], action))
-    );
+export function combineReducers<State, Action>(
+  reducers: Record<keyof State, Reducer<any, Action>>
+) {
+  return function (state: State | undefined, action: Action) {
+    const combined: any = {};
+
+    Object.keys(reducers).forEach((key) => {
+      combined[key] = reducers[key](state && state[key], action);
+    });
 
     return { ...combined };
   };
